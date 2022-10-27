@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
-//console.log(data[0]);
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -27,28 +26,25 @@ mongoose
       creator: "The dude",
       created: '2020-01-21'
     }
-
-    return Recipe.create(cake)
-    .then(()=> 
-    {
-      const title = Recipe.findOne({title: "sweetCake"})
-      return title
-      // Iteration3
-
-     // Recipe.insertMany(data)
-    })
-     .then((test)=>{
-       //console.log(test.title)
-       Recipe.insertMany(data)
-     })
-
-     })
+    return Recipe.create(cake);
+  })
+  .then((db)=>{
+    console.log(db.title);
+   return Recipe.insertMany(data)
+  })
+  .then(()=>{
+    return Recipe.find({});
+  })
+  .then((recipes)=>{
+    recipes.forEach(element => {
+           console.log(element.title);
+         });
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
+  })
+  .then((result)=>{
+    console.log("Update fine");
+    
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-// find alle recipes and print only the title
-Recipe.find({}).then((recipe)=>{
-  recipe.forEach(element => {
-    console.log(element.title);
-  });
-})
