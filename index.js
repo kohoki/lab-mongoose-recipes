@@ -17,9 +17,38 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.create(data[0])
-    // Run your code here, after you have insured that the connection was made
-  })
+    const cake = {
+      title: "sweetCake",
+      level: "Easy Peasy",
+      ingredients: ["eggs", "sugar", "milk", "flour", "biscuits"],
+      cuisine: "french",
+      dishType: "dessert",
+      duration: 20,
+      creator: "The dude",
+      created: '2020-01-21'
+    }
+
+    return Recipe.create(cake)
+    .then(()=> 
+    {
+      const title = Recipe.findOne({title: "sweetCake"})
+      return title
+      // Iteration3
+
+     // Recipe.insertMany(data)
+    })
+     .then((test)=>{
+       //console.log(test.title)
+       Recipe.insertMany(data)
+     })
+
+     })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+// find alle recipes and print only the title
+Recipe.find({}).then((recipe)=>{
+  recipe.forEach(element => {
+    console.log(element.title);
+  });
+})
