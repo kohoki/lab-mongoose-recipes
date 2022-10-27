@@ -30,6 +30,7 @@ mongoose
   })
   .then((db)=>{
     console.log(db.title);
+  // Iter 3
    return Recipe.insertMany(data)
   })
   .then(()=>{
@@ -39,11 +40,13 @@ mongoose
     recipes.forEach(element => {
            console.log(element.title);
          });
+    // Iter 4
     return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
   })
-  .then((result)=>{
+  .then(()=>{
     console.log("Update fine");
-    
+    // Iter 5
+    return Recipe.deleteOne({title: 'Carrot Cake'});
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
