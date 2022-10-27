@@ -48,6 +48,17 @@ mongoose
     // Iter 5
     return Recipe.deleteOne({title: 'Carrot Cake'});
   })
+  .then((message)=>{
+    console.log(message);
+  })
+  .then(()=>
+  {
+    // It 6
+    return mongoose.disconnect()
+  })
+  .then(()=>{
+    console.log("database disconnected");
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  });  
